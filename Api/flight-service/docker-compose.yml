@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  flight-service:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+      - rabbitmq
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/flightdb
+      - AMQP_URL=amqp://rabbitmq
+    volumes:
+      - .:/app
+    command: npm run dev
+  listener-service:
+    build: .
+    depends_on:
+      - rabbitmq 
+    environment:
+      - AMQP_URL=amqp://rabbitmq
+    volumes:
+      - .:/app
+    command: npm run listen
+
+  mongo:
+    image: mongo:6
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+      
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"     # for RabbitMQ protocol
+      - "15672:15672"   # for web UI
+
+
+volumes:
+  mongo-data:

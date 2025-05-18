@@ -1,0 +1,14 @@
+# Node modules and environment
+node_modules/
+.env
+
+# Docker volumes/data
+mongo-data/
+*.log
+
+# VSCode / system files
+.vscode/
+.DS_Store
+
+# Optional
+npm-debug.log
