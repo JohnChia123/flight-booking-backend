@@ -1,0 +1,4 @@
+revert-listener-localhost branch was created to revert listener.js to localhost instead of docker container.
+
+To know how this whole application works with message queue, please refer to postMessageQueueExample.png.
+
