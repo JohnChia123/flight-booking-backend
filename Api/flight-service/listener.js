@@ -1,9 +1,12 @@
-const connectToRabbitMQ = require('./utils/rabbitConnect');
+const amqp = require('amqplib');
+
+const RABBIT_URL = process.env.AMQP_URL || 'amqp://localhost';
 console.log('🔁 LISTENER SERVICE UPDATED YAY');
 console.log('🔁 LISTENER SERVICE RELOADED');
 async function start() {
   try {
-    const { conn, channel } = await connectToRabbitMQ();
+    const conn = await amqp.connect(RABBIT_URL);
+    const channel = await conn.createChannel();
 
     await channel.assertQueue('flight_created', { durable: true });
 

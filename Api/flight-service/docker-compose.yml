@@ -14,15 +14,6 @@ services:
     volumes:
       - .:/app
     command: npm run dev
-  listener-service:
-    build: .
-    depends_on:
-      - rabbitmq 
-    environment:
-      - AMQP_URL=amqp://rabbitmq
-    volumes:
-      - .:/app
-    command: npm run listen
 
   mongo:
     image: mongo:6
